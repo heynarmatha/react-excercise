@@ -1,23 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import  Effect from "./component/useEffect";
+import Condition from "./component/condition";
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [greeting, setGreeting] = useState("Morning");
+  const [sum, setSum] = useState(0);
+
+  // useEffect(() => {
+  //   console.log("------------useEffect with no dependency---------");
+  // });
+
+  useEffect(() => {
+    // console.log("*******useEffect with dependency***************");
+  }, []);
+
+  useEffect(() => {
+    // console.log("*******useEffect with count***************");
+    setSum(count+sum)
+  }, [count,greeting]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>
+        {greeting} - count : {count} - Sum : {sum}
+      </h1>
+
+      { count%3===0 ? <Effect/> : <Condition/>}
+
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        Increment
+      </button>
+
+      <button
+        onClick={() => {
+          setGreeting(greeting === "Morning" ? "Night" : "Morning");
+        }}
+      >
+        Update Greeting
+      </button>
     </div>
   );
 }
